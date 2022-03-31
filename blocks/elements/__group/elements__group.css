@@ -1,0 +1,6 @@
+.elements__group {
+  min-height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

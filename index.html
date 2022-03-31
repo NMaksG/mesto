@@ -1,13 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
-    <title>Mesto</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./fonts/fonts.css">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
 </head>
-<body>
-    <script src="script.js"></script>
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="./images/logo-header.svg" alt="Логотип Место">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <img class="profile__avatar" src="./images/Жак-Ив Кусто.jpg" alt="Аватар">
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button" type="button"></button>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
+      <button class="profile__add-button" type="button"></button>
+    </section>
+    <section class="elements">
+      <ul class="elements__element">
+        <li class="elements__item">
+          <img class="elements__img" src="./images/Карачаевск.jpg" alt="Карачаевск">
+          <div class="elements__group">
+            <h2 class="elements__title">Карачаевск</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__img" src="./images/Гора Эльбрус.jpg" alt="Гора Эльбрус">
+          <div class="elements__group">
+            <h2 class="elements__title">Гора Эльбрус</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__img" src="./images/Домбай.png" alt="Домбай">
+          <div class="elements__group">
+            <h2 class="elements__title">Домбай</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__img" src="./images/Гора Эльбрус.jpg" alt="Гора Эльбрус">
+          <div class="elements__group">
+            <h2 class="elements__title">Гора Эльбрус</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__img" src="./images/Домбай.png" alt="Домбай">
+          <div class="elements__group">
+            <h2 class="elements__title">Домбай</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__img" src="./images/Карачаевск.jpg" alt="Карачаево-Черкессия">
+          <div class="elements__group">
+            <h2 class="elements__title">Карачаево-Черкессия</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+  <div class="popap">
+    <form class="popap__content">
+      <button class="popap__close" type="button"></button>
+      <h2 class="popap__title">Редактировать профиль</h2>
+      <input class="popap__field popap__field_name" type="text" placeholder="Имя">
+      <input class="popap__field popap__field_description" type="text" placeholder="О себе">
+      <button class="popap__submit-button" type="submit">Сохранить</button>
+    </form>
+</div>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>
