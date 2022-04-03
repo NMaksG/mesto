@@ -1,4 +1,5 @@
 @import url(../vendor/normalize.css);
+@import url(../fonts/fonts.css);
 @import url(../blocks/page/page.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
@@ -12,21 +13,21 @@
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__element/elements__element.css);
-@import url(../blocks/elements/__item/elements__item.css);
-@import url(../blocks/elements/__img/elements__img.css);
-@import url(../blocks/elements/__group/elements__group.css);
-@import url(../blocks/elements/__title/elements__title.css);
-@import url(../blocks/elements/__like/elements__like.css);
-@import url(../blocks/elements/__like/_active/elements__like_active.css);
+@import url(../blocks/elements-item/elements-item.css);
+@import url(../blocks/elements-item/__img/elements-item__img.css);
+@import url(../blocks/elements-item/__group/elements-item__group.css);
+@import url(../blocks/elements-item/__title/elements-item__title.css);
+@import url(../blocks/elements-item/__like/elements-item__like.css);
+@import url(../blocks/elements-item/__like/_active/elements-item__like_active.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
-@import url(../blocks/popap/popap.css);
-@import url(../blocks/popap/_active/popap_active.css);
-@import url(../blocks/popap/__content/popap__content.css);
-@import url(../blocks/popap/__close/popap__close.css);
-@import url(../blocks/popap/__title/popap__title.css);
-@import url(../blocks/popap/__field/popap__field.css);
-@import url(../blocks/popap/__submit-button/popap__submit-button.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_active/popup_active.css);
+@import url(../blocks/popup/__content/popup__content.css);
+@import url(../blocks/popup/__close/popup__close.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__field/popup__field.css);
+@import url(../blocks/popup/__submit-button/popup__submit-button.css);
 
 
 

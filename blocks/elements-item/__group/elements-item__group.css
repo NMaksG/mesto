@@ -1,5 +1,5 @@
-.elements__group {
-  min-height: 76px;
+.elements-item__group {
+  min-height: 79px;
   display: flex;
   justify-content: space-between;
   align-items: center;

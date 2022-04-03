@@ -1,29 +1,33 @@
-let popapModalWindow = document.querySelector('.popap');
-let buttonOpenPopap = document.querySelector('.profile__edit-button');
-let buttonClosePopap = popapModalWindow.querySelector('.popap__close');
-let popapForm = document.querySelector('.popap__content');
-let popapName = popapForm.querySelector('.popap__field_name');
-let popapDescription = popapForm.querySelector('.popap__field_description');
+let popupModalWindow = document.querySelector('.popup');
+let buttonOpenPopup = document.querySelector('.profile__edit-button');
+let buttonClosePopup = popupModalWindow.querySelector('.popup__close');
+let popupForm = document.querySelector('.popup__content');
+let popupName = popupForm.querySelector('.popup__field_type_name');
+let popupDescription = popupForm.querySelector('.popup__field_type_description');
 let profName = document.querySelector('.profile__name');
 let profDescription = document.querySelector('.profile__description');
 
-function toggleModalWindow() {
-  popapModalWindow.classList.toggle('popap_active');
+function addModalWindow() {
+  popupModalWindow.classList.add('popup_active');
 
-  popapName.value = profName.textContent;
-  popapDescription.value = profDescription.textContent;
+  popupName.value = profName.textContent;
+  popupDescription.value = profDescription.textContent;
+  console.log(addModalWindow)
 }
+buttonOpenPopup.addEventListener('click', addModalWindow);
 
-buttonOpenPopap.addEventListener('click', toggleModalWindow);
-buttonClosePopap.addEventListener('click', toggleModalWindow);
+function closeModalWindow() {
+  popupModalWindow.classList.remove('popup_active');
+  console.log(closeModalWindow)
+}
+buttonClosePopup.addEventListener('click', closeModalWindow);
 
 function oneSubmit(e) {
     e.preventDefault();
     
-    profName.textContent = popapName.value;
-    profDescription.textContent = popapDescription.value;
+    profName.textContent = popupName.value;
+    profDescription.textContent = popupDescription.value;
 
-    toggleModalWindow();
+    closeModalWindow();
 }
-
-popapForm.addEventListener('submit', oneSubmit);
+popupForm.addEventListener('submit', oneSubmit);

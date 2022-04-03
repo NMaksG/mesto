@@ -1,19 +1,22 @@
-.popap__field {
+.popup__field {
   margin: 54px auto 30px;
   padding: 0;
-  width: 358px;
-  height: 27px;
+  max-width: 358px;
+  width: 100%;
+  min-height: 27px;
   border-style: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  display: block;
+  outline: none;
 }
 
-.popap__field:last-of-type {
+.popup__field:last-of-type {
   margin-top: 0;
   margin-bottom: 0;
 }
 
 @media screen and (max-width: 935px) {
-  .popap__field {
+  .popup__field {
     margin: 75px auto 30px;
     max-width: 238px;
   }
