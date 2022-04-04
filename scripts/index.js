@@ -12,13 +12,11 @@ function addModalWindow() {
 
   popupName.value = profName.textContent;
   popupDescription.value = profDescription.textContent;
-  console.log(addModalWindow)
 }
 buttonOpenPopup.addEventListener('click', addModalWindow);
 
 function closeModalWindow() {
   popupModalWindow.classList.remove('popup_active');
-  console.log(closeModalWindow)
 }
 buttonClosePopup.addEventListener('click', closeModalWindow);
 
