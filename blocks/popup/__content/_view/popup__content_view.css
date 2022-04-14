@@ -1,0 +1,9 @@
+.popup__content_view {
+    max-width: 75vw;
+    max-height: 75vh;
+    width: auto;
+    padding: 0;
+    color: #fff;
+    background-color: transparent;
+  }
+  
