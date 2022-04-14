@@ -1,4 +1,4 @@
-.elements-item__del-card {
+.elements-item__del {
     padding: 0;
     width: 18px;
     height: 19px;
@@ -12,6 +12,6 @@
     transition: opacity 1s;
   } 
   
-  .elements-item__del-card:hover {
+  .elements-item__del:hover {
     opacity: .6;
   }
