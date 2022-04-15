@@ -24,6 +24,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
 const popupModalWindow = document.querySelector('.popup');
 const popupModalWindowEdit = document.querySelector('.popup_edit');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
@@ -41,24 +42,22 @@ const popupFormAdd = popupModalWindowAdd.querySelector('.popup__content');
 const popupTitle = popupFormAdd.querySelector('.popup__field_type_title');
 const popupLink = popupFormAdd.querySelector('.popup__field_type_link');
 
+const popupModalWindowView = document.querySelector('.popup_view');
+const buttonClosePopupView = popupModalWindowView.querySelector('.popup__close');
+const popupTitleView = popupModalWindowView.querySelector('.popup__title_view');
+const popupImgView = popupModalWindowView.querySelector('.popup__img_view');
+
+const listCards = document.querySelector('.elements__element_template');
+const template = document.querySelector('.template');
+
 
 function addModalWindow(popupModalWindow) {
   popupModalWindow.classList.add('popup_active');
-  if (popupModalWindowEdit.classList.contains('popup_active')) {
-    popupName.value = profName.textContent;
-    popupDescription.value = profDescription.textContent;
-  }
 }
-buttonOpenPopupEdit.addEventListener('click', function () {
-  addModalWindow(popupModalWindowEdit);
-});
-buttonOpenPopupAdd.addEventListener('click', function () {addModalWindow(popupModalWindowAdd)});
 
 function closeModalWindow(popupModalWindow) {
   popupModalWindow.classList.remove('popup_active');
 }
-buttonClosePopupEdit.addEventListener('click', function () {closeModalWindow(popupModalWindowEdit)});
-buttonClosePopupAdd.addEventListener('click',  function () {closeModalWindow(popupModalWindowAdd)});
 
 function handleEditSubmit(e) {
   e.preventDefault();
@@ -68,10 +67,6 @@ function handleEditSubmit(e) {
   
   closeModalWindow(popupModalWindow);
 }
-popupFormEdit.addEventListener('submit', handleEditSubmit);
-
-const listCards = document.querySelector('.elements__element_template');
-const template = document.querySelector('.template');
 
 function render() {
   const html = initialCards.map(getElement);
@@ -81,17 +76,33 @@ render();
 
 function getElement(item) {
   const getElementTemplate = template.content.cloneNode(true);
-  const img = getElementTemplate.querySelector('.elements-item__img_template');
+  const imgView = getElementTemplate.querySelector('.elements-item__img_template');
   const title = getElementTemplate.querySelector('.elements-item__title_template');
   const buttonDelCard = getElementTemplate.querySelector('.elements-item__del_card');
-
-  img.src = item.link;
-  img.alt = item.name;
+  const cardLike = getElementTemplate.querySelector('.elements-item__like');
+  
+  imgView.src = item.link;
+  imgView.alt = item.name;
   title.textContent = item.name;
-
-  buttonDelCard.addEventListener('click', handleDelCard);  
-
+  
+  buttonDelCard.addEventListener('click', handleDelCard); 
+  
+  imgView.addEventListener('click', function() {
+    handleCardView(item);
+  });
+  
+  cardLike.addEventListener('click', function() {
+    cardLike.classList.toggle('elements-item__like_active');
+  });
+  
   return getElementTemplate;
+}
+
+function handleCardView(item) {
+  popupImgView.src = item.link;
+  popupTitleView.alt = item.name;
+  popupTitleView.textContent = item.name;
+  addModalWindow(popupModalWindowView);
 }
 
 function handleDelCard(e) {
@@ -101,12 +112,38 @@ function handleDelCard(e) {
 
 function handleAddSubmit(e) {
   e.preventDefault();
- 
-  const TitleNewCard = popupTitle.value;
-  const LinkNewCard = popupLink.value;
-  const NewCard = getElement({name: TitleNewCard, link: LinkNewCard});
-  listCards.prepend(NewCard);
   
+  const cardNewTitle = popupTitle.value;
+  const cardNewLink = popupLink.value;
+  const cardNewAlt = popupTitle.value;
+  const cardNew = getElement({name: cardNewTitle, link: cardNewLink, alt: cardNewAlt});
+  listCards.prepend(cardNew);
+
+  popupTitle.value = '';
+  popupLink.value = '';
+  popupTitle.value = '';
+    
   closeModalWindow(popupModalWindowAdd);
 }
+
+buttonOpenPopupEdit.addEventListener('click', function () {
+  addModalWindow(popupModalWindowEdit);
+  popupName.value = profName.textContent;
+  popupDescription.value = profDescription.textContent;
+});
+buttonOpenPopupAdd.addEventListener('click', function () {
+  addModalWindow(popupModalWindowAdd)
+});
+
+buttonClosePopupEdit.addEventListener('click', function () {
+  closeModalWindow(popupModalWindowEdit)
+});
+buttonClosePopupAdd.addEventListener('click',  function () {
+  closeModalWindow(popupModalWindowAdd)
+});
+buttonClosePopupView.addEventListener('click',  function () {
+  closeModalWindow(popupModalWindowView)
+});
+
+popupFormEdit.addEventListener('submit', handleEditSubmit);
 popupFormAdd.addEventListener('submit', handleAddSubmit);
