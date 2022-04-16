@@ -25,7 +25,6 @@ const initialCards = [
   }
 ];
 
-const popupModalWindow = document.querySelector('.popup');
 const popupModalWindowEdit = document.querySelector('.popup_edit');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
 const buttonClosePopupEdit = popupModalWindowEdit.querySelector('.popup__close');
@@ -51,11 +50,11 @@ const listCards = document.querySelector('.elements__element_template');
 const template = document.querySelector('.template');
 
 
-function addModalWindow(popupModalWindow) {
+function openPopup(popupModalWindow) {
   popupModalWindow.classList.add('popup_active');
 }
 
-function closeModalWindow(popupModalWindow) {
+function closePopup(popupModalWindow) {
   popupModalWindow.classList.remove('popup_active');
 }
 
@@ -65,7 +64,7 @@ function handleEditSubmit(e) {
   profName.textContent = popupName.value;
   profDescription.textContent = popupDescription.value;
   
-  closeModalWindow(popupModalWindow);
+  closePopup(popupModalWindowEdit);
 }
 
 function render() {
@@ -102,7 +101,7 @@ function handleCardView(item) {
   popupImgView.src = item.link;
   popupTitleView.alt = item.name;
   popupTitleView.textContent = item.name;
-  addModalWindow(popupModalWindowView);
+  openPopup(popupModalWindowView);
 }
 
 function handleDelCard(e) {
@@ -115,34 +114,31 @@ function handleAddSubmit(e) {
   
   const cardNewTitle = popupTitle.value;
   const cardNewLink = popupLink.value;
-  const cardNewAlt = popupTitle.value;
-  const cardNew = getElement({name: cardNewTitle, link: cardNewLink, alt: cardNewAlt});
+  const cardNew = getElement({name: cardNewTitle, link: cardNewLink});
   listCards.prepend(cardNew);
-
-  popupTitle.value = '';
-  popupLink.value = '';
-  popupTitle.value = '';
-    
-  closeModalWindow(popupModalWindowAdd);
+  
+  document.getElementById('form').reset();
+  
+  closePopup(popupModalWindowAdd);
 }
 
 buttonOpenPopupEdit.addEventListener('click', function () {
-  addModalWindow(popupModalWindowEdit);
+  openPopup(popupModalWindowEdit);
   popupName.value = profName.textContent;
   popupDescription.value = profDescription.textContent;
 });
 buttonOpenPopupAdd.addEventListener('click', function () {
-  addModalWindow(popupModalWindowAdd)
+  openPopup(popupModalWindowAdd)
 });
 
 buttonClosePopupEdit.addEventListener('click', function () {
-  closeModalWindow(popupModalWindowEdit)
+  closePopup(popupModalWindowEdit)
 });
 buttonClosePopupAdd.addEventListener('click',  function () {
-  closeModalWindow(popupModalWindowAdd)
+  closePopup(popupModalWindowAdd)
 });
 buttonClosePopupView.addEventListener('click',  function () {
-  closeModalWindow(popupModalWindowView)
+  closePopup(popupModalWindowView)
 });
 
 popupFormEdit.addEventListener('submit', handleEditSubmit);
