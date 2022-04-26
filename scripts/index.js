@@ -49,13 +49,35 @@ const popupImgView = popupModalWindowView.querySelector('.popup__img_view');
 const listCards = document.querySelector('.elements__element_template');
 const template = document.querySelector('.template');
 
+function handlePopupOverlayClose(e) {
+  if (e.target === e.currentTarget) {
+   handlePopupOverlayEscapeClose();
+  }
+}
+
+function handlePopupEscapeClose(e) {
+  if (e.key === 'Escape') {
+    handlePopupOverlayEscapeClose();
+    }
+}
+
+function handlePopupOverlayEscapeClose() {
+  const popup = document.querySelector('.popup_active');
+  closePopup(popup);
+}
 
 function openPopup(popupModalWindow) {
   popupModalWindow.classList.add('popup_active');
+
+  document.addEventListener('keydown', handlePopupEscapeClose);
+  popupModalWindow.addEventListener('click', handlePopupOverlayClose);
 }
 
 function closePopup(popupModalWindow) {
   popupModalWindow.classList.remove('popup_active');
+
+  document.removeEventListener('keydown', handlePopupEscapeClose);
+  popupModalWindow.removeEventListener('click', handlePopupOverlayClose);
 }
 
 function handleEditSubmit(e) {
