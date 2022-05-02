@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const popupModalWindowEdit = document.querySelector('.popup_edit');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
 const buttonClosePopupEdit = popupModalWindowEdit.querySelector('.popup__close');
@@ -71,6 +44,7 @@ function openPopup(popupModalWindow) {
 
   document.addEventListener('keydown', handlePopupEscapeClose);
   popupModalWindow.addEventListener('click', handlePopupOverlayClose);
+  resetForm();
 }
 
 function closePopup(popupModalWindow) {
@@ -78,6 +52,12 @@ function closePopup(popupModalWindow) {
 
   document.removeEventListener('keydown', handlePopupEscapeClose);
   popupModalWindow.removeEventListener('click', handlePopupOverlayClose);
+}
+
+function resetForm() {
+  document.getElementById('form').reset();
+  resetError(popupModalWindowAdd, config);
+  resetError(popupModalWindowEdit, config);
 }
 
 function handleEditSubmit(e) {
@@ -138,16 +118,16 @@ function handleAddSubmit(e) {
   const cardNewLink = popupLink.value;
   const cardNew = getElement({name: cardNewTitle, link: cardNewLink});
   listCards.prepend(cardNew);
-  
-  document.getElementById('form').reset();
-  
+
+  resetForm();
+
   closePopup(popupModalWindowAdd);
 }
 
 buttonOpenPopupEdit.addEventListener('click', function () {
-  openPopup(popupModalWindowEdit);
   popupName.value = profName.textContent;
   popupDescription.value = profDescription.textContent;
+  openPopup(popupModalWindowEdit);
 });
 buttonOpenPopupAdd.addEventListener('click', function () {
   openPopup(popupModalWindowAdd)
