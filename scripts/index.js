@@ -24,19 +24,15 @@ const template = document.querySelector('.template');
 
 function handlePopupOverlayClose(e) {
   if (e.target === e.currentTarget) {
-   handlePopupOverlayEscapeClose();
+  closePopup(e.target);
   }
 }
 
 function handlePopupEscapeClose(e) {
-  if (e.key === 'Escape') {
-    handlePopupOverlayEscapeClose();
-    }
-}
-
-function handlePopupOverlayEscapeClose() {
   const popup = document.querySelector('.popup_active');
-  closePopup(popup);
+  if (e.key === 'Escape') {
+    closePopup(popup);
+    }
 }
 
 function openPopup(popupModalWindow) {
@@ -44,7 +40,6 @@ function openPopup(popupModalWindow) {
 
   document.addEventListener('keydown', handlePopupEscapeClose);
   popupModalWindow.addEventListener('click', handlePopupOverlayClose);
-  resetForm();
 }
 
 function closePopup(popupModalWindow) {
@@ -52,12 +47,6 @@ function closePopup(popupModalWindow) {
 
   document.removeEventListener('keydown', handlePopupEscapeClose);
   popupModalWindow.removeEventListener('click', handlePopupOverlayClose);
-}
-
-function resetForm() {
-  document.getElementById('form').reset();
-  resetError(popupModalWindowAdd, config);
-  resetError(popupModalWindowEdit, config);
 }
 
 function handleEditSubmit(e) {
@@ -118,20 +107,25 @@ function handleAddSubmit(e) {
   const cardNewLink = popupLink.value;
   const cardNew = getElement({name: cardNewTitle, link: cardNewLink});
   listCards.prepend(cardNew);
-
-  resetForm();
-
+  
   closePopup(popupModalWindowAdd);
 }
 
-buttonOpenPopupEdit.addEventListener('click', function () {
+function handleOpenPopupAdd() {
+  popupTitle.value = '';
+  popupLink.value = '';
+  resetError(popupModalWindowAdd, config);
+  openPopup(popupModalWindowAdd)
+}
+function handleOpenPopupEdit() {
   popupName.value = profName.textContent;
   popupDescription.value = profDescription.textContent;
+  resetError(popupModalWindowEdit, config);
   openPopup(popupModalWindowEdit);
-});
-buttonOpenPopupAdd.addEventListener('click', function () {
-  openPopup(popupModalWindowAdd)
-});
+}
+
+buttonOpenPopupEdit.addEventListener('click', handleOpenPopupEdit);
+buttonOpenPopupAdd.addEventListener('click', handleOpenPopupAdd);
 
 buttonClosePopupEdit.addEventListener('click', function () {
   closePopup(popupModalWindowEdit)
