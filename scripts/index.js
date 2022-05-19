@@ -1,3 +1,8 @@
+import { initialCards } from "./initialCards.js";
+import { config } from "./config.js";
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
 const popupModalWindowEdit = document.querySelector('.popup_edit');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
 const buttonClosePopupEdit = popupModalWindowEdit.querySelector('.popup__close');
@@ -20,7 +25,37 @@ const popupTitleView = popupModalWindowView.querySelector('.popup__title_view');
 const popupImgView = popupModalWindowView.querySelector('.popup__img_view');
 
 const listCards = document.querySelector('.elements__element_template');
-const template = document.querySelector('.template');
+
+const renderElements = () => {
+  listCards.innerHTML = '';
+  initialCards.forEach((item) => {
+    
+    const card = new Card(item, '.template', handleCardView);
+    const cardElement = card.generateCard(item);
+      listCards.append(cardElement);
+  });
+};
+
+renderElements();
+
+function handleAddSubmit(e) {
+  e.preventDefault();
+  
+  const cardNewTitle = popupTitle.value;
+  const cardNewLink = popupLink.value;
+  const card = new Card({name: cardNewTitle, link: cardNewLink}, '.template', handleCardView);
+    const cardElement = card.generateCard({name: cardNewTitle, link: cardNewLink});
+      listCards.prepend(cardElement);
+  
+  closePopup(popupModalWindowAdd);
+}
+
+function handleCardView(item) {
+  popupImgView.src = item.link;
+  popupTitleView.alt = item.name;
+  popupTitleView.textContent = item.name;
+  openPopup(popupModalWindowView);
+}
 
 function handlePopupOverlayClose(e) {
   if (e.target === e.currentTarget) {
@@ -58,65 +93,13 @@ function handleEditSubmit(e) {
   closePopup(popupModalWindowEdit);
 }
 
-function render() {
-  const html = initialCards.map(getElement);
-  listCards.append(...html);
-}
-render();
-
-function getElement(item) {
-  const getElementTemplate = template.content.cloneNode(true);
-  const imgView = getElementTemplate.querySelector('.elements-item__img_template');
-  const title = getElementTemplate.querySelector('.elements-item__title_template');
-  const buttonDelCard = getElementTemplate.querySelector('.elements-item__del_card');
-  const cardLike = getElementTemplate.querySelector('.elements-item__like');
-  
-  imgView.src = item.link;
-  imgView.alt = item.name;
-  title.textContent = item.name;
-  
-  buttonDelCard.addEventListener('click', handleDelCard); 
-  
-  imgView.addEventListener('click', function() {
-    handleCardView(item);
-  });
-  
-  cardLike.addEventListener('click', function() {
-    cardLike.classList.toggle('elements-item__like_active');
-  });
-  
-  return getElementTemplate;
-}
-
-function handleCardView(item) {
-  popupImgView.src = item.link;
-  popupTitleView.alt = item.name;
-  popupTitleView.textContent = item.name;
-  openPopup(popupModalWindowView);
-}
-
-function handleDelCard(e) {
-  const delCard = e.target.closest('.elements-item');
-  delCard.remove();
-}
-
-function handleAddSubmit(e) {
-  e.preventDefault();
-  
-  const cardNewTitle = popupTitle.value;
-  const cardNewLink = popupLink.value;
-  const cardNew = getElement({name: cardNewTitle, link: cardNewLink});
-  listCards.prepend(cardNew);
-  
-  closePopup(popupModalWindowAdd);
-}
-
 function handleOpenPopupAdd() {
   popupTitle.value = '';
   popupLink.value = '';
   resetError(popupModalWindowAdd, config);
-  openPopup(popupModalWindowAdd)
+  openPopup(popupModalWindowAdd);
 }
+
 function handleOpenPopupEdit() {
   popupName.value = profName.textContent;
   popupDescription.value = profDescription.textContent;
@@ -128,13 +111,13 @@ buttonOpenPopupEdit.addEventListener('click', handleOpenPopupEdit);
 buttonOpenPopupAdd.addEventListener('click', handleOpenPopupAdd);
 
 buttonClosePopupEdit.addEventListener('click', function () {
-  closePopup(popupModalWindowEdit)
+  closePopup(popupModalWindowEdit);
 });
 buttonClosePopupAdd.addEventListener('click',  function () {
-  closePopup(popupModalWindowAdd)
+  closePopup(popupModalWindowAdd);
 });
 buttonClosePopupView.addEventListener('click',  function () {
-  closePopup(popupModalWindowView)
+  closePopup(popupModalWindowView);
 });
 
 popupFormEdit.addEventListener('submit', handleEditSubmit);
