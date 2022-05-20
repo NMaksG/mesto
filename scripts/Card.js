@@ -18,17 +18,19 @@ export class Card {
   
   generateCard = () => {
     this._element = this._getTemplate();
-    this._setEventListeners();
-
-    this._element.querySelector('.elements-item__img_template').src = this._link;
-    this._element.querySelector('.elements-item__img_template').alt = this._name;
+    
+    this._cardView = this._element.querySelector('.elements-item__img_template');
+    this._cardView.src = this._link;
+    this._cardView.alt = this._name;
     this._element.querySelector('.elements-item__title_template').textContent = this._name;
     
+    this._setEventListeners();
     return this._element;
   }
   
   _handleDelCard = () => {
     this._element.remove();
+    this._element = null;
   }
   
   _handleToggleLike = () => {
@@ -37,7 +39,6 @@ export class Card {
   
   _setEventListeners = () => {
     this._cardLike = this._element.querySelector('.elements-item__like');
-    this._cardView = this._element.querySelector('.elements-item__img_template');
 
     this._element.querySelector('.elements-item__del_card').addEventListener('click', () => {
       this._handleDelCard();

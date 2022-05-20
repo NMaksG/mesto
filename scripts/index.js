@@ -36,10 +36,8 @@ profileFormValidator.enableValidation();
 const renderElements = () => {
   listCards.innerHTML = '';
   initialCards.forEach((item) => {
-    
-    const card = new Card(item, '.template', handleCardView);
-    const cardElement = card.generateCard();
-      listCards.append(cardElement);
+    const cardElement = generateCardElement(item);
+    listCards.append(cardElement);
   });
 };
 
@@ -50,11 +48,17 @@ function handleAddSubmit(e) {
   
   const cardNewTitle = popupTitle.value;
   const cardNewLink = popupLink.value;
-  const card = new Card({name: cardNewTitle, link: cardNewLink}, '.template', handleCardView);
-    const cardElement = card.generateCard({name: cardNewTitle, link: cardNewLink});
-      listCards.prepend(cardElement);
+  const cardElement = generateCardElement({name: cardNewTitle, link: cardNewLink});
+  listCards.prepend(cardElement);
   
   closePopup(popupModalWindowAdd);
+}
+
+function generateCardElement(item) {
+  const card = new Card(item, '.template', handleCardView);
+  const cardElement = card.generateCard();
+
+  return cardElement;
 }
 
 function handleCardView(item) {
@@ -72,8 +76,8 @@ function handlePopupOverlayClose(e) {
 }
 
 function handlePopupEscapeClose(e) {
-  const popup = document.querySelector('.popup_active');
   if (e.key === 'Escape') {
+    const popup = document.querySelector('.popup_active');
     closePopup(popup);
     }
 }
@@ -82,14 +86,14 @@ function openPopup(popupModalWindow) {
   popupModalWindow.classList.add('popup_active');
 
   document.addEventListener('keydown', handlePopupEscapeClose);
-  popupModalWindow.addEventListener('click', handlePopupOverlayClose);
+  popupModalWindow.addEventListener('mousedown', handlePopupOverlayClose);
 }
 
 function closePopup(popupModalWindow) {
   popupModalWindow.classList.remove('popup_active');
 
   document.removeEventListener('keydown', handlePopupEscapeClose);
-  popupModalWindow.removeEventListener('click', handlePopupOverlayClose);
+  popupModalWindow.removeEventListener('mousedown', handlePopupOverlayClose);
 }
 
 function handleEditSubmit(e) {
@@ -102,8 +106,7 @@ function handleEditSubmit(e) {
 }
 
 function handleOpenPopupAdd() {
-  popupTitle.value = '';
-  popupLink.value = '';
+  popupAddForm.reset();
   cardFormValidator.resetError();
   openPopup(popupModalWindowAdd);
 }
