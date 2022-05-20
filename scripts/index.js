@@ -4,6 +4,7 @@ import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
 
 const popupModalWindowEdit = document.querySelector('.popup_edit');
+const popupEditForm = popupModalWindowEdit.querySelector('.popup__form');
 const buttonOpenPopupEdit = document.querySelector('.profile__edit-button');
 const buttonClosePopupEdit = popupModalWindowEdit.querySelector('.popup__close');
 const popupFormEdit = popupModalWindowEdit.querySelector('.popup__content');
@@ -14,6 +15,7 @@ const profDescription = document.querySelector('.profile__description');
 const buttonOpenPopupAdd = document.querySelector('.profile__add-button');
 
 const popupModalWindowAdd = document.querySelector('.popup_add');
+const popupAddForm = popupModalWindowAdd.querySelector('.popup__form');
 const buttonClosePopupAdd = popupModalWindowAdd.querySelector('.popup__close');
 const popupFormAdd = popupModalWindowAdd.querySelector('.popup__content');
 const popupTitle = popupFormAdd.querySelector('.popup__field_type_title');
@@ -26,12 +28,17 @@ const popupImgView = popupModalWindowView.querySelector('.popup__img_view');
 
 const listCards = document.querySelector('.elements__element_template');
 
+const cardFormValidator = new FormValidator(config, popupAddForm);
+const profileFormValidator = new FormValidator(config,  popupEditForm);
+cardFormValidator.enableValidation();
+profileFormValidator.enableValidation();
+
 const renderElements = () => {
   listCards.innerHTML = '';
   initialCards.forEach((item) => {
     
     const card = new Card(item, '.template', handleCardView);
-    const cardElement = card.generateCard(item);
+    const cardElement = card.generateCard();
       listCards.append(cardElement);
   });
 };
@@ -56,6 +63,7 @@ function handleCardView(item) {
   popupTitleView.textContent = item.name;
   openPopup(popupModalWindowView);
 }
+
 
 function handlePopupOverlayClose(e) {
   if (e.target === e.currentTarget) {
@@ -96,14 +104,14 @@ function handleEditSubmit(e) {
 function handleOpenPopupAdd() {
   popupTitle.value = '';
   popupLink.value = '';
-  resetError(popupModalWindowAdd, config);
+  cardFormValidator.resetError();
   openPopup(popupModalWindowAdd);
 }
 
 function handleOpenPopupEdit() {
   popupName.value = profName.textContent;
   popupDescription.value = profDescription.textContent;
-  resetError(popupModalWindowEdit, config);
+  profileFormValidator.resetError();
   openPopup(popupModalWindowEdit);
 }
 
