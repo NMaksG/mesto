@@ -25,11 +25,10 @@ export class FormValidator {
   }
   
   resetError() {
-    const inputList = this._formElementPopup.querySelectorAll(this._inputSelector);
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
     this._hideInputError(inputElement);
-    this._toggleButtonState();
-   });
+  });
+  this._toggleButtonState();
   }
   
   _checkInputValidity = (inputElement) => {
