@@ -1,19 +1,16 @@
 import Popup from "./Popup";
 
 export default class PopupWihtImage extends Popup {
-  constructor(item, popupSelector) {
+  constructor(popupSelector) {
     super(popupSelector);
-    this._link = item.link;
-    this._name = item.name;
+    this._popupImgView = this._popup.querySelector('.popup__img_view');
+    this._popupTitleView = this._popup.querySelector('.popup__title_view');
   }
   
-  open = () => {
-    // popupImgView.src = this._link;
-    // popupTitleView.alt = this._name;
-    // popupTitleView.textContent = this._name;
-    this._popup.querySelector('.popup__img_view').src = this._link;
-    this._popup.querySelector('.popup__title_view').alt = this._name;
-    this._popup.querySelector('.popup__title_view').textContent = this._name;
+  open = (item) => {
+    this._popupImgView.src = item.link;
+    this._popupImgView.alt = item.name;
+    this._popupTitleView.textContent = item.name;
     
     super.open();
   }

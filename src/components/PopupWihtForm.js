@@ -5,11 +5,10 @@ export default class PopupWihtForm extends Popup {
     super(popupSelector);
     this._handleSubmit = handleSubmit;
     this._element = this._popup.querySelector('.popup__form')
+    this._inputList = Array.from(this._element.querySelectorAll('.popup__field'));
   }
 
   _getInputValues = () => {
-    this._inputList = Array.from(this._element.querySelectorAll('.popup__field'));
-
     this._formValues = {};
   
     this._inputList.forEach((input) => {

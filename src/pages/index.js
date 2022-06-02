@@ -4,7 +4,6 @@ import { config } from "../utils/config.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
 import PopupWihtImage from "../components/PopupWihtImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWihtForm from "../components/PopupWihtForm.js";
@@ -25,9 +24,9 @@ import {
 
 const cardFormValidator = new FormValidator(config, popupAddForm);
 const profileFormValidator = new FormValidator(config,  popupEditForm);
-const popupEdit = new Popup(popupModalWindowEdit);
 const popupAddSubmit = new PopupWihtForm(popupModalWindowAdd, handleAddSubmit);
 const popupEditSubmit = new PopupWihtForm(popupModalWindowEdit, handleEditSubmit);
+const popupView = new PopupWihtImage(popupModalWindowView);
 const userInfo = new UserInfo({
   name: profName,
   info: profDescription
@@ -47,15 +46,12 @@ function generateCardElement(item) {
 }
 
 function handleCardView(item) {
-  const popupView = new PopupWihtImage(item, popupModalWindowView);
-  popupView.open();
-  popupView.setEventListeners();
+  popupView.open(item);
 }
 
 function handleEditSubmit(data) {
   userInfo.setUserInfo(data);
   popupEditSubmit.close();
-  popupEdit.close();
 }
 
 function handleAddSubmit(data) {
@@ -73,7 +69,6 @@ function handleOpenPopupAdd() {
 }
 
 function handleOpenPopupEdit() {
-  popupEditSubmit.setEventListeners();
   const data = userInfo.getUserInfo();
   
   popupName.value = data.name;
@@ -87,6 +82,7 @@ profileFormValidator.enableValidation();
 
 section.renderItems();
 
+popupView.setEventListeners();
 popupEditSubmit.setEventListeners();
 popupAddSubmit.setEventListeners();
 
