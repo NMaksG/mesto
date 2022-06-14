@@ -1,5 +1,5 @@
 import './index.css';
-import { initialCards } from "../utils/initialCards.js";
+// import { initialCards } from "../utils/initialCards.js";
 import { config } from "../utils/config.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
@@ -21,6 +21,7 @@ import {
   popupModalWindowView,
   listCards
 } from "../utils/constants.js"
+import Api from '../components/Api';
 
 const cardFormValidator = new FormValidator(config, popupAddForm);
 const profileFormValidator = new FormValidator(config,  popupEditForm);
@@ -31,13 +32,13 @@ const userInfo = new UserInfo({
   name: profName,
   info: profDescription
 });
-const section = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const cardElement = generateCardElement(item);
-    section.addItem(cardElement);
-  }
-}, listCards);
+// const section = new Section({
+//   items: initialCards,
+//   renderer: (item) => {
+//     const cardElement = generateCardElement(item);
+//     section.addItem(cardElement);
+//   }
+// }, listCards);
 
 function generateCardElement(item) {
   const card = new Card(item, '.template', handleCardView);
@@ -77,10 +78,44 @@ function handleOpenPopupEdit() {
   popupEditSubmit.open();
 }
 
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-43',
+  headers: {
+    authorization: '2da19b5e-259f-4a92-b11d-fa94b554e063',
+    'Content-Type': 'application/json'
+  }
+}); 
+
+api.getInitialCards()
+  .then((items) => {
+    console.log(items);
+    const section = new Section({
+      items,
+      renderer: (item) => {
+        const cardElement = generateCardElement(item);
+        section.addItem(cardElement);
+      }
+    }, listCards);
+    section.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+api.getUserInfo()
+.then((result) => {
+  console.log(result)
+})
+.catch(err => {
+  console.log(err)
+})
+
+
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
 
-section.renderItems();
+// section.renderItems();
 
 popupView.setEventListeners();
 popupEditSubmit.setEventListeners();
