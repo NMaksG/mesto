@@ -2,36 +2,62 @@ export default class Api {
   constructor({baseUrl, headers}) {
     this._url = baseUrl;
     this._headers = headers;
-    // this._headers = {
-    //   authorization: '2da19b5e-259f-4a92-b11d-fa94b554e063',
-    //   'Content-Type': 'application/json'
-    // }
+  }
+
+  _getResult = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-  
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+    .then(this._getResult);
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
+    .then(this._getResult);
+  } 
+
+  setUserInfo(data) {
+    return fetch(`${this._url}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about
+      })
+    })
+    .then(this._getResult);
+  }
+
   
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
-  
+  setAvatar(avatar) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatar
+      })
+    })
+    .then(this._getResult);
+  } 
+
+  addCards(data) {
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link
+      })
+    })
+    .then(this._getResult);
   } 
 }

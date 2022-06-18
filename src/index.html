@@ -13,13 +13,16 @@
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/Жак-ИвКусто.jpg')%>" alt="Аватар">
+      <a href="#" class="profile__edit-avatar"><img class="profile__avatar" src="/" alt="Аватар"></a>
+      <!-- <img class="profile__avatar" src="<%=require('./images/Жак-ИвКусто.jpg')%>" alt="Аватар"> -->
       <div class="profile__info">
         <div class="profile__info-name">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
+          <!-- <h1 class="profile__name">Жак-Ив Кусто</h1> -->
           <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
         </div>
-        <p class="profile__description">Исследователь океана</p>
+        <p class="profile__description"></p>
+        <!-- <p class="profile__description">Исследователь океана</p> -->
       </div>
       <button class="profile__add-button" type="button" aria-label="Добавить"></button>
     </section>
@@ -38,7 +41,10 @@
       <img class="elements-item__img elements-item__img_template" src="/" alt="">
       <div class="elements-item__group">
         <h2 class="elements-item__title elements-item__title_template"></h2>
+        <div>
         <button class="elements-item__like" type="button" aria-label="Лайк"></button>
+        <p class="elements-item__like-numb"></p>
+        </div>
       </div>
     </li>
   </template>
@@ -111,6 +117,34 @@
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
       <img class="popup__img popup__img_view" src="/" alt="">
       <p class="popup__title popup__title_view"></p>
+    </div>
+  </div>
+  <div class="popup popup_avatar">
+    <div class="popup__content popup__content_avatar">
+      <button class="popup__close" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="popup-form" id="form" novalidate>
+        <input
+          required
+          id="link-input"
+          class="popup__field popup__field_type_link-avatar"
+          name="link"
+          type="url"
+          placeholder="Ссылка на фото"
+          autocomplete="off"
+        >
+        <span class="popup__error popup__error_position-name_top" id="link-input-error"></span>
+        <button class="popup__submit-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_del-card">
+    <div class="popup__content popup__content_del-card">
+      <button class="popup__close" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form class="popup__form" name="popup-form" id="form" novalidate>
+        <button class="popup__submit-button popup__submit-button_del-top" type="submit">Да</button>
+      </form>
     </div>
   </div>
   <!-- <script type="module" src="./scripts/index.js"></script> -->

@@ -16,4 +16,4 @@
 * Настроить сборку проекта Вебпаком
 * Подключить проект Mesto к серверу
 
-[Ссылка на проект](https://nmaksg.github.io/mesto/index.html), https://nmaksg.github.io/mesto 
+[Ссылка на проект](https://nmaksg.github.io/mesto)
