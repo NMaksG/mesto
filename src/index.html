@@ -123,17 +123,17 @@
     <div class="popup__content popup__content_avatar">
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Обновить аватар</h2>
-      <form class="popup__form" name="popup-form" id="form" novalidate>
+      <form class="popup__form" name="popup-form" id="avatar-form" novalidate>
         <input
           required
-          id="link-input"
+          id="link-avatar"
           class="popup__field popup__field_type_link-avatar"
           name="link"
           type="url"
           placeholder="Ссылка на фото"
           autocomplete="off"
         >
-        <span class="popup__error popup__error_position-name_top" id="link-input-error"></span>
+        <span class="popup__error popup__error_position-name_top" id="link-avatar-error"></span>
         <button class="popup__submit-button" type="submit">Сохранить</button>
       </form>
     </div>
@@ -142,7 +142,7 @@
     <div class="popup__content popup__content_del-card">
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Вы уверены?</h2>
-      <form class="popup__form" name="popup-form" id="form" novalidate>
+      <form class="popup__form" name="popup-form" id="delCard-form" novalidate>
         <button class="popup__submit-button popup__submit-button_del-top" type="submit">Да</button>
       </form>
     </div>
