@@ -22,6 +22,7 @@
 @import url(../blocks/elements/__element/elements__element.css);
 @import url(../blocks/elements-item/elements-item.css);
 @import url(../blocks/elements-item/__del/elements-item__del.css);
+@import url(../blocks/elements-item/__del/elements-item__del-disable.css);
 @import url(../blocks/elements-item/__img/elements-item__img.css);
 @import url(../blocks/elements-item/__group/elements-item__group.css);
 @import url(../blocks/elements-item/__title/elements-item__title.css);

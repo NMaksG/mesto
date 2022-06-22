@@ -60,4 +60,20 @@ export default class Api {
     })
     .then(this._getResult);
   } 
+
+  delCard(card) {
+    return fetch(`${this._url}/cards/${card._item._id}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+    .then(this._getResult);
+  } 
+
+  setLikeCard(card, isLike) {
+    return fetch(`${this._url}/cards/${card._item._id}/likes`, {
+      method: isLike ? 'DELETE' : 'PUT',
+      headers: this._headers,
+    })
+    .then(this._getResult);
+  } 
 }
