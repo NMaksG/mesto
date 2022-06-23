@@ -1,12 +1,12 @@
 import Popup from "./Popup";
 
-export default class PopupWihtForm extends Popup {
+export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleSubmit) {
     super(popupSelector);
     this._handleSubmit = handleSubmit;
-    this._element = this._popup.querySelector('.popup__form')
-    this._inputList = Array.from(this._element.querySelectorAll('.popup__field'));
-    this._buttonPopup = this._element.querySelector('.popup__submit-button');
+    // this._popupForm = this._popup.querySelector('.popup__form');
+    this._inputList = Array.from(this._popupForm.querySelectorAll('.popup__field'));
+    this._buttonPopup = this._popupForm.querySelector('.popup__submit-button');
   }
 
   renderLoading = (isLoading, massInit, massLoad) => {
@@ -29,7 +29,7 @@ export default class PopupWihtForm extends Popup {
 
   setEventListeners = () => {
     super.setEventListeners();
-    this._popup.addEventListener('submit', (evt) => {
+    this._popupForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleSubmit(this._getInputValues())
     });
@@ -37,6 +37,6 @@ export default class PopupWihtForm extends Popup {
 
   close = () => {
     super.close();
-    this._element.reset();
+    this._popupForm.reset();
   }
 }

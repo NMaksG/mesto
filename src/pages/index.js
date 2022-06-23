@@ -4,9 +4,9 @@ import { config } from "../utils/config.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import PopupWihtImage from "../components/PopupWihtImage.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-import PopupWihtForm from "../components/PopupWihtForm.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 import {
   popupModalWindowEdit,
   popupEditForm,
@@ -34,10 +34,10 @@ let myID = null;
 const cardFormValidator = new FormValidator(config, popupAddForm);
 const profileFormValidator = new FormValidator(config,  popupEditForm);
 const avatarFormValidator = new FormValidator(config,  popupAvatarForm);
-const popupAddSubmit = new PopupWihtForm(popupModalWindowAdd, handleAddSubmit);
-const popupEditSubmit = new PopupWihtForm(popupModalWindowEdit, handleEditSubmit);
-const popupEditAvatarSubmit = new PopupWihtForm(popupModalWindowEditAvatar, handleEditAvatarSubmit);
-const popupView = new PopupWihtImage(popupModalWindowView);
+const popupAddSubmit = new PopupWithForm(popupModalWindowAdd, handleAddSubmit);
+const popupEditSubmit = new PopupWithForm(popupModalWindowEdit, handleEditSubmit);
+const popupEditAvatarSubmit = new PopupWithForm(popupModalWindowEditAvatar, handleEditAvatarSubmit);
+const popupView = new PopupWithImage(popupModalWindowView);
 const popupDelCards = new PopupWithConfirmation(popupModalWindowADel);
 const section = new Section(
   (item) => {
@@ -68,50 +68,50 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     console.log(err);
   });
   
-  function handleEditSubmit(data) {
-    popupEditSubmit.renderLoading(true, "Сохранить", "Сохранение...");
-    api.setUserInfo(data)
+function handleEditSubmit(data) {
+  popupEditSubmit.renderLoading(true, "Сохранить", "Сохранение...");
+  api.setUserInfo(data)
     .then((result) => {
       userInfo.setUserInfo(result.name, result.about);
+      popupEditSubmit.close();
     })
-  .catch(err => {
-    console.log(err)
-  })
-  .finally(() => {
-    popupEditSubmit.renderLoading(false, "Сохранить", "Сохранение...");
-  })
-  popupEditSubmit.close();
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      popupEditSubmit.renderLoading(false, "Сохранить", "Сохранение...");
+    })
 }
 
 function handleEditAvatarSubmit(data) {
   popupEditAvatarSubmit.renderLoading(true, "Создать", "Сохранение...");
   api.setAvatar(data.link)
-  .then((result) => {
-    userInfo.setAvatar(result.avatar);
-  })
-  .catch(err => {
-    console.log(err)
-  })
-  .finally(() => {
-    popupEditAvatarSubmit.renderLoading(false, "Сохранить", "Сохранение...");
-  })
-  popupEditAvatarSubmit.close();
+    .then((result) => {
+      userInfo.setAvatar(result.avatar);
+      popupEditAvatarSubmit.close();
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      popupEditAvatarSubmit.renderLoading(false, "Сохранить", "Сохранение...");
+    })
 }
 
 function handleAddSubmit(data) {
   popupAddSubmit.renderLoading(true, "Создать", "Сохранение...");
   api.addCards(data)
-  .then((result) => {
-    const cardElement = generateCardElement(result);
-    listCards.prepend(cardElement);
-  })
-  .catch(err => {
-    console.log(err)
-  })
-  .finally(() => {
-    popupAddSubmit.renderLoading(false, "Создать", "Сохранение...");
-  })
-  popupAddSubmit.close();
+    .then((result) => {
+      const cardElement = generateCardElement(result);
+      section.addCard(cardElement);
+      popupAddSubmit.close();
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      popupAddSubmit.renderLoading(false, "Создать", "Сохранение...");
+    })
 }
 
 function generateCardElement(item) {
@@ -121,9 +121,9 @@ function generateCardElement(item) {
 }
 
 function handleOpenPopupDelCard(card) {
-    popupDelCards.open();
-    popupDelCards.delCard(() => {
-    api.delCard(card)
+  popupDelCards.open();
+  popupDelCards.delCard(() => {
+  api.delCard(card)
     .then(() => {
       card.handleDelCard();
       popupDelCards.close();
@@ -135,22 +135,22 @@ function handleOpenPopupDelCard(card) {
 
 function handleLikeCard(card, isLike) {
   api.setLikeCard(card, isLike)
-  .then((result) => {
-    card.handleLikeCard(result)
-  })
-  .catch((err) => {
-    console.log(err)
-  });
+    .then((result) => {
+      card.handleLikeCard(result)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
 }
 
 function handleDeleteLikeCard(card, isLike) {
   api.setLikeCard(card, isLike)
-  .then((result) => {
-    card.handleDeleteLike(result)
-  })
-  .catch((err) => {
-    console.log(err)
-  });
+    .then((result) => {
+      card.handleDeleteLike(result)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
 }
 
 function handleCardView(item) {
